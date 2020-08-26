@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
 </head>
-<body>
-    
 
-    <template>
-            
+<body>
+
+    <div class="pokemonContainer">
+        <!-- templates gets appended here -->
+    </div>
+
+    <template id="pokemon-template">
+        <div class="pokemon-wrapper">
+            <h1 class="name"></h1>
+        </div>
+    </template>
+
+    <template id="pokemon-specifics">
+        <div class="pokemonSpecifics">
+            <div class="img-wrapper">
+                <img src="" alt="" class="pokemonImg">
+            </div>
+            <div class="abilities">
+                <div class="ability1">
+                    <p class="abilityTitle1">First Ability:</p>
+                    <p class="abilityName1"></p>
+                </div>
+                <div class="ability2">
+                    <p class="abilityTitle2">Second Ability:</p>
+                    <p class="abilityName2"></p>
+                </div>
+            </div>
+        </div>
     </template>
 
     <script src="./script.js"></script>
 </body>
+
 </html>
