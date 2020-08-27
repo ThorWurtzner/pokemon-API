@@ -26,14 +26,8 @@ document.querySelector('.pokemonContainer').addEventListener('click', function(e
             clonedPokemonTemplate.querySelector('.pokemonImg').src = dataSpecifics.sprites.front_default;
             clonedPokemonTemplate.querySelector('.abilityName1').innerText = dataSpecifics.abilities[0].ability.name;
             clonedPokemonTemplate.querySelector('.abilityName2').innerText = dataSpecifics.abilities[1].ability.name;
-
-            // let pokemonSpecifics = document.querySelector('.pokemonSpecifics');
-            // if (document.querySelector('.pokemon-wrapper').contains(pokemonSpecifics)) {
-            //     console.log(1)
-            //     event.target.removeChild(clonedPokemonTemplate);
-            // }
             
-            event.target.appendChild(clonedPokemonTemplate);  
+            event.target.appendChild(clonedPokemonTemplate);
 
             console.log(dataSpecifics)
         });
