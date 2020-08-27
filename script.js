@@ -22,19 +22,33 @@ document.querySelector('.pokemonContainer').addEventListener('click', function(e
     fetch("https://pokeapi.co/api/v2/pokemon/" + pokeName)
         .then(response => response.json())
         .then(function(dataSpecifics){
-            // if (!document.querySelector('.pokemon-wrapper').contains('pokemonspecifics')) {
-            //      if pokemon has not been clicked, open
-            // } else {
-            //      if pokemon specifics are already open, remove
-            // }
-
-            console.log(dataSpecifics)
-
             let clonedPokemonTemplate = document.querySelector('#pokemon-specifics').content.cloneNode(true);
             clonedPokemonTemplate.querySelector('.pokemonImg').src = dataSpecifics.sprites.front_default;
             clonedPokemonTemplate.querySelector('.abilityName1').innerText = dataSpecifics.abilities[0].ability.name;
             clonedPokemonTemplate.querySelector('.abilityName2').innerText = dataSpecifics.abilities[1].ability.name;
 
-            event.target.appendChild(clonedPokemonTemplate);
+            // let pokemonSpecifics = document.querySelector('.pokemonSpecifics');
+            // if (document.querySelector('.pokemon-wrapper').contains(pokemonSpecifics)) {
+            //     console.log(1)
+            //     event.target.removeChild(clonedPokemonTemplate);
+            // }
+            
+            event.target.appendChild(clonedPokemonTemplate);  
+
+            console.log(dataSpecifics)
         });
+})
+
+document.querySelector('.pokemonContainer').addEventListener('click', function(event){
+    let pokemonWrappers = document.querySelectorAll('.pokemon-wrapper');
+    let pokemonSpecifics = document.querySelector('.pokemonSpecifics');
+    pokemonWrappers.forEach(pokemonWrapper => {
+        if (pokemonWrapper.contains(pokemonSpecifics)) {
+            console.log(event.target);
+            pokemonSpecifics.classList.add('slide-away')
+            setTimeout(() => {
+                pokemonWrapper.removeChild(pokemonSpecifics);
+            }, 400);
+        }
+    });
 })
