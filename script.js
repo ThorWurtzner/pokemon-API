@@ -9,41 +9,40 @@
 // } else {
 //     offset = parseInt(offset) + 20;
 // }
+
+
+/* #region  GLOBAL VARIABLE DECLARATIONS */
 let offset = 0;
-
 let spinner = document.querySelector('.spinner');
+/* #endregion */
 
+/* #region  PAGE LOAD CONTENT PRODUCER */
 fetch('https://pokeapi.co/api/v2/pokemon?offset=' + offset)
     .then(response => response.json())
     .then(function(data){
-        pokemonList(data)
         let count = data.count;
+        spinner.remove();
+        for (let i = 0; i < data.results.length; i++) {
+            let pokemon = data.results[i];
+
+            let clonedPokemonTemplate = document.querySelector('#pokemon-template').content.cloneNode(true);
+            clonedPokemonTemplate.querySelector('.name').innerText = pokemon.name;
+
+            document.querySelector('.pokemonContainer').appendChild(clonedPokemonTemplate);
+        }
         document.querySelector('.search-wrapper').addEventListener('submit', function(event){
             event.preventDefault();
             search(count);
         })
     })
+/* #endregion */
 
-function pokemonList(data) {
-    spinner.remove();
-    for (let i = 0; i < data.results.length; i++) {
-        let pokemon = data.results[i];
-
-        let clonedPokemonTemplate = document.querySelector('#pokemon-template').content.cloneNode(true);
-        clonedPokemonTemplate.querySelector('.name').innerText = pokemon.name;
-
-        document.querySelector('.pokemonContainer').appendChild(clonedPokemonTemplate);
-
-        // if (document.querySelector('.pokemonContainer').contains(clonedPokemonTemplate)) {
-        //     document.querySelector('.pokemonContainer').removeChild(clonedPokemonTemplate);
-        // } else {
-        //     document.querySelector('.pokemonContainer').appendChild(clonedPokemonTemplate);
-        // }
-    }
-}
-
+/* #region  CONTENT CHANGE BUTTONS */
 document.querySelector('.next').addEventListener('click', function(){
     offset = offset + 20;
+    if (offset > 1040) {
+        offset = 1040;
+    }
     fetch('https://pokeapi.co/api/v2/pokemon?offset=' + offset)
         .then(response => response.json())
         .then(function(data){
@@ -62,6 +61,9 @@ document.querySelector('.next').addEventListener('click', function(){
 
 document.querySelector('.prev').addEventListener('click', function(){
     offset = offset - 20;
+    if (offset < 0) {
+        offset = 0;
+    }
     fetch('https://pokeapi.co/api/v2/pokemon?offset=' + offset)
         .then(response => response.json())
         .then(function(data){
@@ -77,22 +79,9 @@ document.querySelector('.prev').addEventListener('click', function(){
             });
         })
 })
+/* #endregion */
 
-// function remover(data){
-//     for (let i = 0; i < data.results.length; i++) {
-//         pokemon = data.results[i];   
-//         let clonedPokemonTemplate = document.querySelector('#pokemon-template').content.cloneNode(true);
-//         document.querySelector('.pokemonContainer').removeChild(clonedPokemonTemplate);
-//     }
-// }
-
-// document.querySelector('.prev').addEventListener('click', function(){
-//     offset = offset - 20;
-//     fetch('https://pokeapi.co/api/v2/pokemon?offset=' + offset)
-//         .then(response => response.json())
-//         .then(data => pokemonList(data))
-// })
-
+/* #region  CONTENT DETAILS SHOW */
 document.querySelector('.pokemonContainer').addEventListener('click', function(event){
     let pokeName = event.target.innerText
 
@@ -142,24 +131,24 @@ document.querySelector('.pokemonContainer').addEventListener('click', function(e
 
         });
 })
+/* #endregion */
 
+/* #region  CONTENT DETAILS CLOSE */
 document.querySelector('.pokemonContainer').addEventListener('click', function(event){
     let pokemonWrappers = document.querySelectorAll('.pokemon-wrapper');
     let pokemonSpecifics = document.querySelector('.pokemonSpecifics');
     pokemonWrappers.forEach(pokemonWrapper => {
         if (pokemonWrapper.contains(pokemonSpecifics)) {
-            console.log(event.target);
             event.target.classList.remove('expand');
             // pokemonSpecifics.classList.add('slide-away')
             event.target.classList.add('expand-away');
             pokemonWrapper.removeChild(pokemonSpecifics);
-            // setTimeout(() => {
-
-            // }, 400);
         }
     });
 })
+/* #endregion */
 
+/* #region  SEARCH FUNCTION & CONTENT PRODUCER */
 function search(count) {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=' + count + '&offset=0')
         .then(response => response.json())
@@ -191,6 +180,5 @@ function searchList(data) {
 
     document.querySelector('.pokemonContainer').appendChild(clonedPokemonTemplate);
 }
+/* #endregion */
 
-
-// document.querySelector('audio').play();
