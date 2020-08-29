@@ -42,11 +42,40 @@ function pokemonList(data) {
     }
 }
 
-document.querySelector('.more').addEventListener('click', function(){
+document.querySelector('.next').addEventListener('click', function(){
     offset = offset + 20;
     fetch('https://pokeapi.co/api/v2/pokemon?offset=' + offset)
         .then(response => response.json())
-        .then(data => pokemonList(data))
+        .then(function(data){
+            let pokemonWrappers = document.querySelectorAll('.pokemon-wrapper');
+            pokemonWrappers.forEach(element => {
+                element.remove();
+            });
+            data.results.forEach(element => {
+                let clonedPokemonTemplate = document.querySelector('#pokemon-template').content.cloneNode(true);
+                clonedPokemonTemplate.querySelector('.name').innerText = element.name;
+
+                document.querySelector('.pokemonContainer').appendChild(clonedPokemonTemplate);
+            });
+        })
+})
+
+document.querySelector('.prev').addEventListener('click', function(){
+    offset = offset - 20;
+    fetch('https://pokeapi.co/api/v2/pokemon?offset=' + offset)
+        .then(response => response.json())
+        .then(function(data){
+            let pokemonWrappers = document.querySelectorAll('.pokemon-wrapper');
+            pokemonWrappers.forEach(element => {
+                element.remove();
+            });
+            data.results.forEach(element => {
+                let clonedPokemonTemplate = document.querySelector('#pokemon-template').content.cloneNode(true);
+                clonedPokemonTemplate.querySelector('.name').innerText = element.name;
+
+                document.querySelector('.pokemonContainer').appendChild(clonedPokemonTemplate);
+            });
+        })
 })
 
 // function remover(data){
@@ -152,6 +181,10 @@ function search(count) {
 
 function searchList(data) {
     spinner.remove();
+    let pokemonWrappers = document.querySelectorAll('.pokemon-wrapper');
+    pokemonWrappers.forEach(element => {
+        element.remove();
+    });
 
     let clonedPokemonTemplate = document.querySelector('#pokemon-template').content.cloneNode(true);
     clonedPokemonTemplate.querySelector('.name').innerText = data.name;
