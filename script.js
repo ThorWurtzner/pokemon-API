@@ -40,6 +40,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?offset=' + offset)
 /* #region  CONTENT CHANGE BUTTONS */
 document.querySelector('.next').addEventListener('click', function(){
     offset = offset + 20;
+    // hardcoded, try and change it
     if (offset > 1040) {
         offset = 1040;
     }

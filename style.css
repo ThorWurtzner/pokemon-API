@@ -279,8 +279,8 @@ input[type = search] {
 
 .spinner {
     position: fixed;
-    top: 40%;
-    left: 45%;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
     height: 100px;
     width: 100px;
     background: linear-gradient(red 43%, black 43%, black 52%, white 52%);
