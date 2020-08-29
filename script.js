@@ -137,14 +137,26 @@ function search(count) {
         .then(function(data){
             data.results.forEach(element => {
                 console.log(element.name)
-                let userInput = document.querySelector('#search').value;
-                
             });
+            let userInput = document.querySelector('#search').value;
+            fetch('https://pokeapi.co/api/v2/pokemon/' + userInput)
+                .then(response => response.json())
+                .then(function(data){
+                    console.log(data)
+                    searchList(data);
+                })
         })
-    // pokemon.name
-
     //delete everything
     //print new
+}
+
+function searchList(data) {
+    spinner.remove();
+
+    let clonedPokemonTemplate = document.querySelector('#pokemon-template').content.cloneNode(true);
+    clonedPokemonTemplate.querySelector('.name').innerText = data.name;
+
+    document.querySelector('.pokemonContainer').appendChild(clonedPokemonTemplate);
 }
 
 
