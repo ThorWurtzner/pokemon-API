@@ -370,3 +370,26 @@ input[type = search] {
 .hidden {
     display: none;
 }
+
+
+
+.progressText {
+    position: fixed;
+    right: 180px;
+    bottom: calc(50% - 58px);
+    width: 170px;
+    font-size: 30px;
+    background-color: rgb(218, 235, 255);
+    border: 7px solid #385ba8b6;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    z-index: 2;
+
+    text-align: center;
+    font-family: 'pokeman', cursive;
+    font-size: 30px;
+    color: rgb(250, 204, 51);
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: #385CA8;
+    letter-spacing: 3px;
+}

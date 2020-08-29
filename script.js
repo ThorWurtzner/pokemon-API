@@ -13,6 +13,7 @@
 
 /* #region  GLOBAL VARIABLE DECLARATIONS */
 let offset = 0;
+let pageNr = 1;
 let spinner = document.querySelector('.spinner');
 /* #endregion */
 
@@ -39,6 +40,14 @@ fetch('https://pokeapi.co/api/v2/pokemon?offset=' + offset)
 
 /* #region  CONTENT CHANGE BUTTONS */
 document.querySelector('.next').addEventListener('click', function(){
+    if (pageNr > 1048 / 20) {
+        return;
+    } else {
+        document.querySelector('.progressText').classList.remove('hidden');
+        pageNr = pageNr + 1;
+    }
+    document.querySelector('.progressText').innerText = pageNr + '/53'
+
     offset = offset + 20;
     // hardcoded, try and change it
     if (offset > 1040) {
@@ -61,6 +70,14 @@ document.querySelector('.next').addEventListener('click', function(){
 })
 
 document.querySelector('.prev').addEventListener('click', function(){
+    if (pageNr <= 1) {
+        return;
+    } else {
+        document.querySelector('.progressText').classList.remove('hidden');
+        pageNr = pageNr - 1;
+    }
+    document.querySelector('.progressText').innerText = pageNr + '/53'
+
     offset = offset - 20;
     if (offset < 0) {
         offset = 0;
@@ -158,6 +175,9 @@ function search(count) {
                 console.log(element.name)
             });
             let userInput = document.querySelector('#search').value;
+            if (userInput == '') {
+                return;
+            }
             fetch('https://pokeapi.co/api/v2/pokemon/' + userInput)
                 .then(response => response.json())
                 .then(function(data){
@@ -165,12 +185,11 @@ function search(count) {
                     searchList(data);
                 })
         })
-    //delete everything
-    //print new
 }
 
 function searchList(data) {
     spinner.remove();
+    document.querySelector('.progressText').classList.add('hidden');
     let pokemonWrappers = document.querySelectorAll('.pokemon-wrapper');
     pokemonWrappers.forEach(element => {
         element.remove();
