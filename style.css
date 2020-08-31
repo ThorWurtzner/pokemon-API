@@ -3,7 +3,7 @@
 
 @font-face {
     font-family: pokeman;
-    src: url('/fonts/PokemonSolid.ttf')
+    src: url('../pokemon-API/fonts/PokemonSolid.ttf')
 }
 
 body {
