@@ -171,34 +171,64 @@ function search(count) {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=' + count + '&offset=0')
         .then(response => response.json())
         .then(function(data){
-            data.results.forEach(element => {
-                console.log(element.name)
-            });
+
+            // NEW MULTIPLE RESULTS
             let userInput = document.querySelector('#search').value;
             if (userInput == '') {
                 return;
             }
-            fetch('https://pokeapi.co/api/v2/pokemon/' + userInput)
-                .then(response => response.json())
-                .then(function(data){
-                    console.log(data)
-                    searchList(data);
-                })
+
+            let matches = data.results.filter(function(result){
+                return result.name.includes(userInput.toLowerCase());
+            });
+
+            spinner.remove();
+            document.querySelector('.progressText').classList.add('hidden');
+            let pokemonWrappers = document.querySelectorAll('.pokemon-wrapper');
+            pokemonWrappers.forEach(element => {
+                element.remove();
+            });
+
+            // TESTING RESULT DIVIDING PAGES
+            // let matchesFinal = matches.length / 20;
+            // console.log(matchesF)
+
+            matches.forEach(element => {
+                let clonedPokemonTemplate = document.querySelector('#pokemon-template').content.cloneNode(true);
+                clonedPokemonTemplate.querySelector('.name').innerText = element.name;
+                document.querySelector('.pokemonContainer').appendChild(clonedPokemonTemplate);
+            });
+
+            // OLD SINGLE RESULT
+            // data.results.forEach(element => {
+            //     console.log(element.name)
+            // });
+            // let userInput = document.querySelector('#search').value;
+            // if (userInput == '') {
+            //     return;
+            // }
+            // fetch('https://pokeapi.co/api/v2/pokemon/' + userInput)
+            //     .then(response => response.json())
+            //     .then(function(data){
+            //         console.log(data)
+            //         searchList(data);
+            //     })
         })
 }
 
-function searchList(data) {
-    spinner.remove();
-    document.querySelector('.progressText').classList.add('hidden');
-    let pokemonWrappers = document.querySelectorAll('.pokemon-wrapper');
-    pokemonWrappers.forEach(element => {
-        element.remove();
-    });
+// OLD SINGLE RESULT
+// function searchList(data) {
+//     spinner.remove();
+//     document.querySelector('.progressText').classList.add('hidden');
+//     let pokemonWrappers = document.querySelectorAll('.pokemon-wrapper');
+//     pokemonWrappers.forEach(element => {
+//         element.remove();
+//     });
 
-    let clonedPokemonTemplate = document.querySelector('#pokemon-template').content.cloneNode(true);
-    clonedPokemonTemplate.querySelector('.name').innerText = data.name;
+//     let clonedPokemonTemplate = document.querySelector('#pokemon-template').content.cloneNode(true);
+//     clonedPokemonTemplate.querySelector('.name').innerText = data.name;
 
-    document.querySelector('.pokemonContainer').appendChild(clonedPokemonTemplate);
-}
+//     document.querySelector('.pokemonContainer').appendChild(clonedPokemonTemplate);
+// }
 /* #endregion */
 
