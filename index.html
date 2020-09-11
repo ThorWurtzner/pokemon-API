@@ -1,18 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pokeman - jeg fang den</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=2" />
+    <script src="https://kit.fontawesome.com/6e489ebad2.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    
 
-    <template>
-            
+<body>
+
+    <div class="wrapper">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1280px-International_Pok%C3%A9mon_logo.svg.png">
+        <div class="pokemonContainer">
+            <!-- templates gets appended here -->
+        </div>
+        <div class="buttons">
+            <p class="prev">Previous</p>
+            <p class="next">Next</p>
+        </div>
+    </div>
+
+    <!-- #region CONTENT TEMPLATES -->
+    <template id="pokemon-template">
+        <div class="pokemon-wrapper">
+            <h1 class="name"></h1>
+        </div>
     </template>
+
+    <template id="pokemon-specifics">
+        <div class="pokemonSpecifics">
+            <div style="display:flex">
+                <div class="img-wrapper">
+                    <img src="" alt="" class="pokemonImg">
+                </div>
+                <div class="abilities">
+                    <div class="ability1">
+                        <p class="abilityTitle1">First Ability:</p>
+                        <p class="abilityName1"></p>
+                    </div>
+                    <div class="ability2">
+                        <p class="abilityTitle2">Second Ability:</p>
+                        <p class="abilityName2"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="location-wrapper">
+                <p class="locationTitle"></p>
+                <p class="location1"></p>
+                <p class="location2"></p>
+                <p class="location3"></p>
+            </div>
+        </div>
+    </template>
+    <!-- #endregion -->
+
+    <!-- #region ABSOLUTE POSITION SEARCH, MUSIC, SPINNER & PROGRESS -->
+    <form class="search-wrapper">
+        <label for="search">Search</label>
+        <input type="search" name="search" id="search" autocomplete="off">
+    </form>
+
+    <div class="music">
+        <audio controls>
+            <source src="./POKEMON THEME - SHITTYFLUTED.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <div class="spinner"></div>
+
+    <p class="progressText">1/53</p>
+    <!-- #endregion -->
 
     <script src="./script.js"></script>
 </body>
+
 </html>
